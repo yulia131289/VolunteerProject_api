@@ -4,9 +4,12 @@ const dogs = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/dogs.json`)
 );
 
-//-------param Middleware----------------------//
 exports.checkID = (req, res, next, val) => {
-  if (req.params.id * 1 > dogs.length) {
+  const id = req.params.id * 1; //will turn it to number
+
+  const dog = dogs.find((el) => el.id === id);
+
+  if (!dog) {
     return res.status(404).json({
       status: 'fail',
       message: 'Invalid ID',
@@ -14,7 +17,6 @@ exports.checkID = (req, res, next, val) => {
   }
   next();
 };
-//-------------------------------------------------//
 
 exports.getAllTheDogs = (req, res) => {
   res.status(200).json({
@@ -27,16 +29,8 @@ exports.getAllTheDogs = (req, res) => {
 };
 
 exports.getDogWithID = (req, res) => {
-  const id = req.params.id * 1; //will turn it to number
-
+  const id = req.params.id * 1;
   const dog = dogs.find((el) => el.id === id);
-
-  if (!dog) {
-    res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID',
-    });
-  }
 
   res.status(200).json({
     status: 'success',
