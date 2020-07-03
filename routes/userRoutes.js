@@ -1,13 +1,13 @@
-const express = require("express");
-const userController = require("../controllers/userController");
-const router = express.Router("/api/v1/users");
+const express = require('express');
+const userController = require('../controllers/userController');
+const router = express.Router('/api/v1/users');
 
 router
-  .route("/")
+  .route('/')
   .get(userController.getAllUsers)
   .post(userController.createUser);
 router
-  .route("/:id")
+  .route('/:id')
   .get(userController.getUserById)
   .patch(userController.updateUser)
   .delete(userController.deleteUser);

@@ -1,13 +1,15 @@
-const express = require("express");
-const dogController = require("../controllers/dogController");
-const router = express.Router("/api/v1/dogs");
+const express = require('express');
+const dogController = require('../controllers/dogController');
+const router = express.Router('/api/v1/dogs');
+
+router.param('id', dogController.checkID);
 
 router
-  .route("/")
+  .route('/')
   .get(dogController.getAllTheDogs)
   .post(dogController.postNewDog);
 router
-  .route("/:id")
+  .route('/:id')
   .get(dogController.getDogWithID)
   .patch(dogController.updateDog)
   .delete(dogController.deleteDog);
