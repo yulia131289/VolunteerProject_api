@@ -8,7 +8,7 @@ router.param('id', dogController.checkID);
 router
   .route('/')
   .get(dogController.getAllTheDogs)
-  .post(dogController.postNewDog);
+  .post(dogController.checkBody, dogController.postNewDog);
 router
   .route('/:id')
   .get(dogController.getDogWithID)

@@ -18,6 +18,16 @@ exports.checkID = (req, res, next, val) => {
   next();
 };
 
+exports.checkBody = (req, res, next) => {
+  if (!req.body.name) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Missing name',
+    });
+  }
+  next();
+};
+
 exports.getAllTheDogs = (req, res) => {
   res.status(200).json({
     status: 'success',
