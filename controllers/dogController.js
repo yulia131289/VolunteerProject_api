@@ -1,70 +1,90 @@
-const fs = require('fs');
+const Dog = require('../models/dogModel');
 
-const dogs = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/dogs.json`)
-);
+exports.getAllDogs = async (req, res) => {
+  try {
+    const dogs = await Dog.find();
 
-exports.checkID = (req, res, next, val) => {
-  const id = req.params.id * 1; //will turn it to number
-
-  const dog = dogs.find((el) => el.id === id);
-
-  if (!dog) {
-    return res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID',
+    res.status(200).json({
+      status: 'sucess',
+      results: dogs.length,
+      data: {
+        dogs,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      statis: 'fail',
+      message: err,
     });
   }
-  next();
 };
 
-exports.checkBody = (req, res, next) => {
-  if (!req.body.name) {
-    return res.status(404).json({
+exports.getDogWithID = async (req, res) => {
+  try {
+    const dog = await Dog.findById(req.params.id);
+
+    res.status(200).json({
+      status: 'sucsess',
+      data: dog,
+    });
+  } catch (err) {
+    res.status(400).json({
       status: 'fail',
-      message: 'Missing name',
+      message: err,
     });
   }
-  next();
 };
 
-exports.getAllTheDogs = (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    results: dogs.length,
-    data: {
-      dogs,
-    },
-  });
+exports.postNewDog = async (req, res) => {
+  try {
+    const newDog = await Dog.create(req.body);
+
+    res.status(201).json({
+      status: 'success',
+      data: {
+        dog: newDog,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      data: 'Invalid data send',
+    });
+  }
 };
 
-exports.getDogWithID = (req, res) => {
-  const id = req.params.id * 1;
-  const dog = dogs.find((el) => el.id === id);
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      dog,
-    },
-  });
+exports.updateDog = async (req, res) => {
+  try {
+    const updatedDog = await Dog.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({
+      status: 'success',
+      data: {
+        updatedDog,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      message: err,
+    });
+  }
 };
 
-exports.postNewDog = (req, res) => {
-  const newID = dogs[dogs.length - 1].id + 1;
-  const newDog = Object.assign({ id: newID }, req.body);
-  dogs.push(newDog);
-  fs.writeFile(
-    `${__dirname}/dev-data/data/dogs.json`,
-    JSON.stringify(dogs),
-    (err) => {
-      res.status(201).json({
-        status: 'success',
-        data: { dog: newDog },
-      });
-    }
-  );
-};
+exports.deleteDog = async (req, res) => {
+  try {
+    await Dog.findByIdAndDelete(req.params.id);
 
-exports.updateDog = (req, res) => {};
-exports.deleteDog = (req, res) => {};
+    res.status(204).json({
+      status: 'success',
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      data: err,
+    });
+  }
+};

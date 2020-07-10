@@ -1,1 +1,82 @@
-[{"id":0,"name":"פיקסי","images":[""]},{"id":1,"name":"חץ","images":[]},{"id":2,"name":"חץ","images":[]}]
+[
+  {
+    "name": "לולה",
+    "gender": "נקבה",
+    "size": "בינוני",
+    "date_of_arrival": "",
+    "date_of_birth": "07/2016",
+    "description": "",
+    "img": "",
+    "shvav": "953010001576296"
+  },
+  {
+    "name": "באדי",
+    "gender": "זכר",
+    "size": "גדול",
+    "date_of_arrival": "",
+    "date_of_birth": "12/2011",
+    "description": "",
+    "img": "",
+    "shvav": "985170002365736"
+  },
+  {
+    "name": "אווה",
+    "gender": "נקבה",
+    "size": "בינוני-גדול",
+    "date_of_arrival": "24/06/2020",
+    "date_of_birth": "06/2019",
+    "description": "סופר חברותית, מסתדרת עם ילדים וכלבים אחרים ",
+    "img": "",
+    "shvav": "939000007067020"
+  },
+  {
+    "name": "מיקה ",
+    "gender": "נקבה",
+    "size": "בינוני גדול",
+    "date_of_arrival": "20/03/2020",
+    "date_of_birth": "07/2017",
+    "description": "",
+    "img": "",
+    "shvav": "990000001337922"
+  },
+  {
+    "name": "ז׳ורז׳ט",
+    "gender": "נקבה",
+    "size": "בינונית",
+    "date_of_arrival": "01/12/2019",
+    "date_of_birth": "05/2018",
+    "description": "",
+    "img": "",
+    "shvav": "941000014265622"
+  },
+  {
+    "name": "חץ",
+    "gender": "זכר",
+    "size": "בינוני גדול",
+    "date_of_arrival": "20/03/2020",
+    "date_of_birth": "01/2014",
+    "description": "",
+    "img": "",
+    "shvav": "982000357620419"
+  },
+  {
+    "name": "",
+    "gender": "",
+    "size": "",
+    "date_of_arrival": "",
+    "date_of_birth": "",
+    "description": "",
+    "img": "",
+    "shvav": ""
+  },
+  {
+    "name": "",
+    "gender": "",
+    "size": "",
+    "date_of_arrival": "",
+    "date_of_birth": "",
+    "description": "",
+    "img": "",
+    "shvav": ""
+  }
+]
