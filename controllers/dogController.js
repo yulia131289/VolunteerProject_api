@@ -1,8 +1,16 @@
 const Dog = require('../models/dogModel');
+const APIFeatures = require('../utils/apiFeatures');
 
 exports.getAllDogs = async (req, res) => {
   try {
-    const dogs = await Dog.find();
+    //Execute query
+    const features = new APIFeatures(Dog.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+
+    const dogs = await features.query;
 
     res.status(200).json({
       status: 'sucess',
@@ -13,7 +21,7 @@ exports.getAllDogs = async (req, res) => {
     });
   } catch (err) {
     res.status(400).json({
-      statis: 'fail',
+      status: 'fail',
       message: err,
     });
   }

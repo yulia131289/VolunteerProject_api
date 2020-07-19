@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "nodemon server.js",
-    "start:prod": "NODE_ENV=production nodemon server.js"
+    "start:prod": "NODE_ENV=production nodemon server.js",
+    "debug": "ndb server.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,7 @@
     "url": "https://github.com/yulia131289/VolunteerProject_api/issues"
   },
   "homepage": "https://github.com/yulia131289/VolunteerProject_api#readme",
-  "engine": {
+  "engines": {
     "node": ">=12.13.1"
   },
   "dependencies": {
