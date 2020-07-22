@@ -1,8 +1,9 @@
 const Dog = require('../models/dogModel');
 const APIFeatures = require('../utils/apiFeatures');
 const CatchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
-exports.getAllDogs = CatchAsync(async (req, res) => {
+exports.getAllDogs = CatchAsync(async (req, res, next) => {
   const features = new APIFeatures(Dog.find(), req.query)
     .filter()
     .sort()
@@ -20,8 +21,12 @@ exports.getAllDogs = CatchAsync(async (req, res) => {
   });
 });
 
-exports.getDogWithID = CatchAsync(async (req, res) => {
+exports.getDogWithID = CatchAsync(async (req, res, next) => {
   const dog = await Dog.findById(req.params.id);
+
+  if (!dog) {
+    return next(new AppError('No dog found with this ID', 404));
+  }
 
   res.status(200).json({
     status: 'sucsess',
@@ -29,7 +34,7 @@ exports.getDogWithID = CatchAsync(async (req, res) => {
   });
 });
 
-exports.postNewDog = CatchAsync(async (req, res) => {
+exports.postNewDog = CatchAsync(async (req, res, next) => {
   const newDog = await Dog.create(req.body);
 
   res.status(201).json({
@@ -40,7 +45,7 @@ exports.postNewDog = CatchAsync(async (req, res) => {
   });
 });
 
-exports.updateDog = CatchAsync(async (req, res) => {
+exports.updateDog = CatchAsync(async (req, res, next) => {
   const updatedDog = await Dog.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -53,7 +58,7 @@ exports.updateDog = CatchAsync(async (req, res) => {
   });
 });
 
-exports.deleteDog = CatchAsync(async (req, res) => {
+exports.deleteDog = CatchAsync(async (req, res, next) => {
   await Dog.findByIdAndDelete(req.params.id);
 
   res.status(204).json({
