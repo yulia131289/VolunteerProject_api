@@ -50,6 +50,11 @@ exports.updateDog = CatchAsync(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
+
+  if (!updatedDog) {
+    return next(new AppError('No dog found with this ID', 404));
+  }
+
   res.status(200).json({
     status: 'success',
     data: {
@@ -59,7 +64,11 @@ exports.updateDog = CatchAsync(async (req, res, next) => {
 });
 
 exports.deleteDog = CatchAsync(async (req, res, next) => {
-  await Dog.findByIdAndDelete(req.params.id);
+  const dog = await Dog.findByIdAndDelete(req.params.id);
+
+  if (!dog) {
+    return next(new AppError('No dog found with this ID', 404));
+  }
 
   res.status(204).json({
     status: 'success',

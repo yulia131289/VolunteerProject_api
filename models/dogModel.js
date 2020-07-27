@@ -12,7 +12,7 @@ const dogSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  img: { type: String },
+  img: String,
   shvav: Number,
 });
 
